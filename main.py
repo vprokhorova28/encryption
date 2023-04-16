@@ -175,5 +175,6 @@ def main():
                        encoding=cmd_args.encoding,
                        mode=mode)
 
+
 if __name__ == "__main__":
     main()
