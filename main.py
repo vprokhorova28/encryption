@@ -123,33 +123,33 @@ def vigener_cipher(input_file_name: str, output_file_name: str, *,
 
 def main():
     parser = argparse.ArgumentParser(prog="Cipher")
-    parser.add_argument("input_file_name")
-    parser.add_argument("output_file_name")
+    parser.add_argument("input_file_name", help="The path to the txt file to be encrypted/decrypted")
+    parser.add_argument("output_file_name", help="The path to the txt file where the result will be located")
     parser.add_argument("-e", "--encoding",
                         action="store",
                         dest="encoding",
                         required=False,
                         default="utf-8",
-                        help="")
+                        help="Specify the input_file encoding if it is not utf-8")
     parser.add_argument("-m", "--mode",
                         action="store",
                         choices=["encrypt", "decrypt", "hack"],
                         dest="mode",
                         required=True,
-                        help="")
+                        help="Choose one of the actions: {encrypt, decrypt, hack}")
     parser.add_argument("-c", "--cipher",
                         action="store",
                         choices=["caesar", "vigener", "vernam"],
                         type=str,
                         dest="cipher_type",
                         required=False,
-                        help="")
+                        help="If the action is not 'hack' choose one of the ciphers: {caesar, vigener}")
     parser.add_argument("-k", "--key",
                         action="store",
                         dest="key",
                         type=str,
                         required=False,
-                        help="")
+                        help="Specify the shift/key for encryption/decryption")
 
     cmd_args = parser.parse_args(sys.argv[1:])
     if cmd_args.mode == "hack":
@@ -177,4 +177,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
