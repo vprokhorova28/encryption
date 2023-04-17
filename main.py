@@ -4,6 +4,7 @@ import tempfile
 
 import frequency_analysis
 import russian_language_data
+import steganography
 
 
 def get_shifted_letter(
@@ -139,7 +140,7 @@ def main():
                         help="Choose one of the actions: {encrypt, decrypt, hack}")
     parser.add_argument("-c", "--cipher",
                         action="store",
-                        choices=["caesar", "vigener", "vernam"],
+                        choices=["caesar", "vigener", "vernam", "steganography"],
                         type=str,
                         dest="cipher_type",
                         required=False,
@@ -150,6 +151,12 @@ def main():
                         type=str,
                         required=False,
                         help="Specify the shift/key for encryption/decryption")
+    parser.add_argument("--bmp",
+                        action="store",
+                        dest="input_bmp_name",
+                        type=str,
+                        required=False,
+                        help="bmp file where cipher will be put")
 
     cmd_args = parser.parse_args(sys.argv[1:])
     if cmd_args.mode == "hack":
@@ -174,6 +181,11 @@ def main():
                        key=cmd_args.key,
                        encoding=cmd_args.encoding,
                        mode=mode)
+    if cmd_args.cipher_type == "steganography":
+        steganography.encrypt_bmp(cmd_args.input_bmp_name,
+                                  cmd_args.output_file_name,
+                                  cmd_args.input_file_name,
+                                  encoding=cmd_args.encoding)
 
 
 if __name__ == "__main__":
